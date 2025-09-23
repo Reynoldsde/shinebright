@@ -77,11 +77,8 @@
             height: 100vh; 
             position: relative; 
             color: white; 
-            background-image: url('https://i.imgur.com/Ca5q3HP.png');
-            background-size: cover;
-            background-position: center 40%;
+            background-color: var(--bg-dark);
         }
-        .hero-overlay { background: linear-gradient(to top, rgba(18, 18, 18, 0.9) 0%, rgba(18, 18, 18, 0.2) 70%, rgba(18, 18, 18, 0) 100%); }
 
         /* BUTTON */
         .btn {
@@ -277,12 +274,12 @@
       "@context": "https://schema.org",
       "@type": "Dentist",
       "name": "Shine Bright Dental Clinic",
-      "address": { "@type": "PostalAddress", "streetAddress": "KG 541 St", "addressLocality": "Kigali", "addressCountry": "RW" },
+      "address": { "@type": "PostalAddress", "streetAddress": "kk31 ave", "addressLocality": "Kigali", "addressCountry": "RW" },
       "url": "https://www.shinebright.rw",
       "telephone": "+250792526286",
       "priceRange": "$$$",
       "image": "https://i.imgur.com/3SNIhK4.png",
-      "hasMap": "https://maps.app.goo.gl/R2owCUoMMxqzKKae7",
+      "hasMap": "https://www.google.com/maps/place/Shine+Bright+Dental+clinic/@-1.9888147,30.0701345,17z/",
       "areaServed": { "@type": "City", "name": "Kigali" },
       "description": "The premier dental clinic in Kigali, Rwanda, offering a legacy of smiles through artistic and technically advanced dental care, from implants to cosmetic design."
     }
@@ -346,10 +343,9 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero-section flex flex-col justify-end">
-            <div class="absolute inset-0 hero-overlay"></div>
             <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-32 text-center z-10">
                 <h1 id="hero-title" class="text-6xl sm:text-8xl md:text-9xl font-serif leading-none text-white">A Legacy of Smiles</h1>
-                <p id="hero-subtitle" class="max-w-xl mx-auto mt-6 text-lg text-gray-300">
+                <p id="hero-subtitle" class="max-w-xl mx-auto mt-6 text-lg leading-relaxed text-gray-300">
                     Dentistry as a fine art. In our Kigali studio, we craft smiles that are a true reflection of you—where technical precision meets artistic vision.
                 </p>
             </div>
@@ -444,7 +440,12 @@
                     </div>
                     <div class="animate-item">
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="col-span-2 overflow-hidden"><img src="https://i.imgur.com/WZvSeNV.jpeg" alt="Shine Bright Dental Clinic exterior" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></div>
+                            <div class="col-span-2 overflow-hidden">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                    <source src="https://i.imgur.com/1eq2dtV.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
                             <div class="overflow-hidden"><img src="https://i.imgur.com/GHVMalW.jpeg" alt="Advanced dental equipment" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></div>
                             <div class="overflow-hidden"><img src="https://i.imgur.com/BictghS.jpeg" alt="State-of-the-art dental chair" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></div>
                         </div>
@@ -536,8 +537,8 @@
                             <div class="contact-info-item">
                                 <i data-lucide="map-pin"></i>
                                 <h4 class="font-semibold mb-1 text-white">Location</h4>
-                                <p class="text-gray-300">KG 541 St, Kigali, Rwanda</p>
-                                <a href="https://maps.app.goo.gl/R2owCUoMMxqzKKae7" target="_blank" class="map-button">View on Map</a>
+                                <p class="text-gray-300">kk31 ave, Kigali</p>
+                                <a href="https://www.google.com/maps/place/Shine+Bright+Dental+clinic/@-1.9888147,30.0701345,17z/data=!3m1!4b1!4m6!3m5!1s0x19dca703d9703b43:0x7ede01adef7bf492!8m2!3d-1.9888147!4d30.0701345!16s%2Fg%2F11xlp5n8gr?entry=ttu" target="_blank" class="map-button">View on Map</a>
                             </div>
                             <!-- Hours -->
                             <div class="contact-info-item">
@@ -566,6 +567,11 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- MAP SECTION -->
+        <section id="map" class="bg-bg-dark">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.415893214545!2d30.067559574828113!3d-1.988814699999992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca703d9703b43%3A0x7ede01adef7bf492!2sShine%20Bright%20Dental%20clinic!5e0!3m2!1sen!2srw!4v1727112028889!5m2!1sen!2srw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
     </main>
 
@@ -752,6 +758,12 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
