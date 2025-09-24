@@ -51,6 +51,20 @@
         #header {
             transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
         }
+        /* Navigation Link Styling */
+        #header nav a {
+            color: var(--accent-gold);
+            transition: color 0.3s ease;
+        }
+        #header.scrolled nav a {
+            color: var(--text-dark);
+        }
+        #header nav a:hover {
+            color: white;
+        }
+        #header.scrolled nav a:hover {
+            color: var(--accent-gold);
+        }
         #header.scrolled {
             background-color: rgba(253, 252, 251, 0.85);
             backdrop-filter: blur(12px);
@@ -72,12 +86,19 @@
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
         
-        /* HERO */
+        /* HERO SECTION */
         .hero-section { 
             height: 100vh; 
             position: relative; 
             color: white; 
-            background-color: var(--bg-dark);
+            background-color: var(--bg-dark); /* Fallback color */
+            background-image: url('https://i.imgur.com/8yaWuTe.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #hero-title, #hero-subtitle {
+            text-shadow: 0 2px 15px rgba(0,0,0,0.5);
         }
 
         /* BUTTON */
@@ -296,16 +317,16 @@
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 z-50 py-8" id="header">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <a href="#" class="flex items-center" aria-label="Shine Bright Dental Clinic Home">
+            <a href="#" class="flex items-center nav-item" aria-label="Shine Bright Dental Clinic Home">
                 <img src="https://i.imgur.com/3SNIhK4.png" alt="Shine Bright Dental Clinic Logo" class="h-12 w-auto">
             </a>
-            <nav class="hidden lg:flex items-center space-x-10 text-xs uppercase tracking-widest text-text-dark">
-                <a href="#about" class="hover:text-accent-gold transition-colors duration-300">About</a>
-                <a href="#services" class="hover:text-accent-gold transition-colors duration-300">Services</a>
-                <a href="#gallery" class="hover:text-accent-gold transition-colors duration-300">Gallery</a>
-                <a href="#contact" class="hover:text-accent-gold transition-colors duration-300">Contact</a>
+            <nav class="hidden lg:flex items-center space-x-10 text-xs uppercase tracking-widest">
+                <a href="#about" class="transition-colors duration-300 nav-item">About</a>
+                <a href="#services" class="transition-colors duration-300 nav-item">Services</a>
+                <a href="#gallery" class="transition-colors duration-300 nav-item">Gallery</a>
+                <a href="#contact" class="transition-colors duration-300 nav-item">Contact</a>
             </nav>
-            <a href="#contact" class="hidden md:inline-flex btn">
+            <a href="#contact" class="hidden md:inline-flex btn nav-item">
                 <span class="relative z-10">Book Consultation</span>
                 <span class="btn-bg"></span>
             </a>
@@ -343,6 +364,9 @@
     <main>
         <!-- HERO SECTION -->
         <section class="hero-section flex flex-col justify-end">
+            <!-- This div creates the dark overlay on top of the background image -->
+            <div class="absolute inset-0 bg-black/80 z-[1]"></div>
+            
             <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-32 text-center z-10">
                 <h1 id="hero-title" class="text-6xl sm:text-8xl md:text-9xl font-serif leading-none text-white">A Legacy of Smiles</h1>
                 <p id="hero-subtitle" class="max-w-xl mx-auto mt-6 text-lg leading-relaxed text-gray-300">
@@ -652,9 +676,10 @@
               onComplete: () => {
                 preloader.style.display = 'none';
                 document.body.style.overflow = 'auto'; // Re-enable scroll
-                // HERO ANIMATION (RUNS AFTER PRELOADER)
+                // HERO & NAV ANIMATION (RUNS AFTER PRELOADER)
                 gsap.timeline()
-                    .from('#hero-title', { opacity: 0, y: 50, duration: 1.2, ease: 'power3.out' })
+                    .from('.nav-item', { opacity: 0, y: -30, duration: 1, ease: 'power3.out', stagger: 0.1 }, 0.5)
+                    .from('#hero-title', { opacity: 0, y: 50, duration: 1.2, ease: 'power3.out' }, '-=0.8')
                     .from('#hero-subtitle', { opacity: 0, y: 30, duration: 1.2, ease: 'power3.out' }, '-=0.9');
               }
         });
@@ -758,10 +783,6 @@
     </script>
 </body>
 </html>
-
-
-
-
 
 
 
