@@ -1,511 +1,852 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kind Hearts Registrar - Domain Names, Web Hosting</title>
+    <title>Best Dental Clinic in Kigali, Rwanda | Shine Bright Dental Clinic</title>
+    <meta name="description" content="Discover the leading dental clinic in Kigali, Rwanda. Shine Bright offers premium dental services including implants, orthodontics, teeth whitening, and cosmetic smile design. Book your expert consultation today.">
+    <meta name="keywords" content="dental clinic kigali, dentist kigali, best dentist rwanda, cosmetic dentistry kigali, dental implants rwanda, teeth whitening kigali, orthodontist kigali, Shine Bright Dental Clinic">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://i.imgur.com/3SNIhK4.png" type="image/png">
+
+    <!-- Scripts & Stylesheets -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
     <style>
+        :root {
+            --bg-primary: #FDFCFB;
+            --bg-secondary: #F4F1EE; 
+            --bg-dark: #1A1A1A;
+            --text-dark: #1C1C1C;
+            --text-light: #5a5a5a;
+            --accent-gold: #B48C58;
+            --accent-light-gold: #DCD0C0;
+            --border-color: #EAEAEA;
+        }
+        ::selection { background-color: var(--accent-gold); color: white; }
+        
+        /* GENERAL STYLES */
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Cormorant', serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        /* HEADER */
+        #header {
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+        }
+        /* Navigation Link Styling */
+        #header nav a {
+            color: var(--accent-gold);
+            transition: color 0.3s ease;
+        }
+        #header.scrolled nav a {
+            color: var(--text-dark);
+        }
+        #header nav a:hover {
+            color: white;
+        }
+        #header.scrolled nav a:hover {
+            color: var(--accent-gold);
+        }
+        #header.scrolled {
+            background-color: rgba(253, 252, 251, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* PRELOADER */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-primary); z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .preloader-logo { opacity: 0; transform: scale(0.9); }
+        .preloader .line {
+            width: 1px; height: 0%; background-color: var(--accent-gold);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
         }
         
-        .hero-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* HERO SECTION */
+        .hero-section { 
+            height: 100vh; 
+            position: relative; 
+            color: white; 
+            background-color: var(--bg-dark); /* Fallback color */
+            background-image: url('https://i.imgur.com/8yaWuTe.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        #hero-title, #hero-subtitle {
+            text-shadow: 0 2px 15px rgba(0,0,0,0.5);
         }
-        
-        .payment-button {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* BUTTON */
+        .btn {
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 2.25rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: 600;
             overflow: hidden;
+            transition: color 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid var(--accent-light-gold);
+            z-index: 1;
         }
-        
-        .payment-button::before {
-            content: '';
+        .btn.btn-dark {
+            color: white;
+            border-color: rgba(255,255,255,0.3);
+        }
+        .btn .btn-bg {
             position: absolute;
-            top: 0;
-            left: -100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--accent-gold);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: -1;
+        }
+        .btn.btn-dark .btn-bg {
+            background-color: white;
+        }
+        .btn:hover { color: white; }
+        .btn.btn-dark:hover { color: var(--text-dark); }
+        .btn:hover .btn-bg { transform: scaleY(1); transform-origin: top; }
+        
+        /* SERVICES */
+        .service-card {
+            border: 1px solid var(--border-color);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.08);
+        }
+        .service-card .service-icon {
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.1);
+            color: var(--accent-gold);
+        }
+
+        /* GALLERY */
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* LIGHTBOX */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(8px); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+        .lightbox.active { opacity: 1; visibility: visible; }
+        .lightbox-content { position: relative; max-width: 90vw; max-height: 85vh; }
+        .lightbox-img { width: 100%; height: 100%; object-fit: contain; transform: scale(0.9); transition: transform 0.4s ease; }
+        .lightbox.active .lightbox-img { transform: scale(1); }
+        .lightbox-close, .lightbox-prev, .lightbox-next { position: absolute; background: rgba(0,0,0,0.3); color: white; border: none; cursor: pointer; padding: 0.5rem; transition: background 0.3s; z-index: 10001; border-radius: 50%; width: 50px; height: 50px; display:flex; align-items:center; justify-content:center;}
+        .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: var(--accent-gold); }
+        .lightbox-close { top: 15px; right: 15px; }
+        .lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); }
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
+
+        /* WHATSAPP FAB */
+        .whatsapp-fab { position: fixed; bottom: 30px; right: 30px; z-index: 1000; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(37, 211, 102, 0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; animation: float-animation 3s ease-in-out infinite; }
+        .whatsapp-fab:hover { transform: scale(1.15); box-shadow: 0 0 35px rgba(37, 211, 102, 0.8); animation-play-state: paused; }
+        @keyframes float-animation { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+
+        /* TESTIMONIALS */
+        .testimonial-card {
+            border: 1px solid var(--border-color);
+            transition: background-color 0.4s ease;
+        }
+        .testimonial-card:hover {
+            background-color: white;
+        }
+
+        /* FORM STYLES */
+        .form-input {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 1rem 1.25rem;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            border-radius: 0;
+        }
+        .form-input::placeholder { color: rgba(255,255,255,0.4); }
+        .form-input:focus { 
+            outline: none; 
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(180, 140, 88, 0.2);
         }
         
-        .payment-button:hover::before {
-            left: 100%;
+        /* SECTION SUBTITLE */
+        .section-subtitle {
+            font-family: 'Inter', sans-serif;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+            display: block;
+            margin-bottom: 1rem;
         }
         
-        .payment-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        /* CONTACT INFO BLOCKS */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
-        
-        .feature-card {
-            transition: all 0.3s ease;
+        @media (min-width: 768px) {
+            .contact-info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
-        
-        .feature-card:hover {
+        .contact-info-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .contact-info-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
             transform: translateY(-5px);
         }
-        
-        .modal-backdrop {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+        .contact-info-item i {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            width: 32px;
+            height: 32px;
         }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
+        .contact-info-item a {
+            color: var(--accent-gold);
+            transition: color 0.3s ease;
         }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .contact-info-item a:hover {
+            color: white;
         }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .map-button {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
-        .crypto-address {
-            word-break: break-all;
-            font-family: 'Courier New', monospace;
+        .map-button:hover {
+            background-color: var(--accent-gold);
+            color: white !important;
         }
-        
-        .copy-animation {
-            animation: copySuccess 0.3s ease;
+
+        /* SOCIAL MEDIA ICONS */
+        .social-icon svg {
+            transition: transform 0.3s ease;
         }
-        
-        @keyframes copySuccess {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .social-icon:hover svg {
+            transform: scale(1.2);
         }
-        
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .floating-elements::before,
-        .floating-elements::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .floating-elements::before {
-            top: 10%;
-            left: 10%;
-            animation-delay: -3s;
-        }
-        
-        .floating-elements::after {
-            bottom: 10%;
-            right: 10%;
-            animation-delay: -1s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
+        .social-facebook svg { color: #1877F2; }
+        .social-instagram svg { color: #E4405F; }
+        .social-linkedin svg { color: #0A66C2; }
     </style>
+
+    <!-- SEO: Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dentist",
+      "name": "Shine Bright Dental Clinic",
+      "address": { "@type": "PostalAddress", "streetAddress": "kk31 ave", "addressLocality": "Kigali", "addressCountry": "RW" },
+      "url": "https://www.shinebright.rw",
+      "telephone": "+250792526286",
+      "priceRange": "$$$",
+      "image": "https://i.imgur.com/3SNIhK4.png",
+      "hasMap": "https://www.google.com/maps/place/Shine+Bright+Dental+clinic/@-1.9888147,30.0701345,17z/",
+      "areaServed": { "@type": "City", "name": "Kigali" },
+      "description": "The premier dental clinic in Kigali, Rwanda, offering a legacy of smiles through artistic and technically advanced dental care, from implants to cosmetic design."
+    }
+    </script>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-40">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-3xl font-black">
-                <span class="gradient-text">Kind Hearts</span><span class="text-orange-500">Registrar</span>
-            </div>
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-all duration-200 hover:scale-105">Domains</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-all duration-200 hover:scale-105">Hosting</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-all duration-200 hover:scale-105">Email</a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-all duration-200 hover:scale-105">Security</a>
-                <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    Cart
-                </button>
-            </div>
-            <div class="lg:hidden">
-                <button class="text-gray-600 focus:outline-none hover:text-blue-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-        </nav>
+<body class="antialiased">
+
+    <!-- PRELOADER -->
+    <div class="preloader">
+        <img src="https://i.imgur.com/3SNIhK4.png" alt="Logo" class="preloader-logo h-16">
+        <div class="line"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 py-8" id="header">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="#" class="flex items-center nav-item" aria-label="Shine Bright Dental Clinic Home">
+                <img src="https://i.imgur.com/3SNIhK4.png" alt="Shine Bright Dental Clinic Logo" class="h-12 w-auto">
+            </a>
+            <nav class="hidden lg:flex items-center space-x-10 text-xs uppercase tracking-widest">
+                <a href="#about" class="transition-colors duration-300 nav-item">About</a>
+                <a href="#services" class="transition-colors duration-300 nav-item">Services</a>
+                <a href="#gallery" class="transition-colors duration-300 nav-item">Gallery</a>
+                <a href="#contact" class="transition-colors duration-300 nav-item">Contact</a>
+            </nav>
+            <a href="#contact" class="hidden md:inline-flex btn nav-item">
+                <span class="relative z-10">Book Consultation</span>
+                <span class="btn-bg"></span>
+            </a>
+            <button id="mobile-menu-button" class="lg:hidden text-text-dark" aria-label="Open Menu">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
     </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Checkout Section -->
-        <section id="checkout-section" class="relative py-20 hero-bg overflow-hidden">
-            <div class="floating-elements"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-6">
-                        Your Domain is 
-                        <span class="block text-transparent bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text">Ready</span>
-                    </h1>
-                    <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto font-light">
-                        Complete your order for <span class="font-bold text-yellow-400">brightsmiledentalclinic.unaux.com</span> with secure cryptocurrency payment
-                    </p>
-                </div>
-
-                <div class="max-w-2xl mx-auto">
-                    <div class="glass-effect rounded-3xl overflow-hidden shadow-2xl">
-                        <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-8 text-white text-center">
-                            <h3 class="text-3xl font-bold mb-3">Order Summary</h3>
-                            <p class="text-indigo-100 text-lg">Premium domain registration</p>
-                        </div>
-                        
-                        <div class="bg-white/95 backdrop-blur-sm p-8">
-                            <div class="text-center mb-10">
-                                <p class="text-gray-600 mb-6 text-lg">You are purchasing the domain:</p>
-                                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-8 border border-blue-200">
-                                    <p class="text-2xl md:text-3xl font-bold gradient-text">brightsmiledentalclinic.unaux.com</p>
-                                </div>
-                                
-                                <div class="flex justify-between items-center text-2xl border-t border-gray-200 pt-8">
-                                    <span class="font-bold text-gray-700">Total Price:</span>
-                                    <span class="font-black text-4xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent pulse-animation">$18.99/yr</span>
-                                </div>
-                                
-                                <div class="bg-blue-50 rounded-2xl p-6 mt-8">
-                                    <div class="flex items-center justify-center mb-3">
-                                        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 0v2m0-2h2m-2 0H10m4-4v-2a2 2 0 00-2-2H10a2 2 0 00-2 2v2h8z"/>
-                                        </svg>
-                                        <span class="font-semibold text-blue-800">Includes Premium Features</span>
-                                    </div>
-                                    <p class="text-sm text-blue-700">Free privacy protection, global DNS service, and 24/7 expert support</p>
-                                </div>
-                            </div>
-
-                            <div class="space-y-6">
-                                <h4 class="font-bold text-center text-gray-800 text-2xl mb-8">Choose Your Payment Method</h4>
-
-                                <!-- Binance Pay -->
-                                <button onclick="openPaymentModal('Binance')" class="payment-button w-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold py-5 px-6 rounded-2xl shadow-lg">
-                                    <div class="w-10 h-10 mr-4 bg-black rounded-full flex items-center justify-center">
-                                        <span class="text-yellow-400 font-bold text-lg">B</span>
-                                    </div>
-                                    <span class="text-xl">Pay with Binance</span>
-                                    <svg class="w-6 h-6 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                    </svg>
-                                </button>
-
-                                <!-- MetaMask -->
-                                <button onclick="openPaymentModal('MetaMask')" class="payment-button w-full flex items-center justify-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-5 px-6 rounded-2xl shadow-lg">
-                                    <div class="w-10 h-10 mr-4 bg-white rounded-full flex items-center justify-center">
-                                        <span class="text-orange-500 font-bold text-lg">M</span>
-                                    </div>
-                                    <span class="text-xl">Pay with MetaMask</span>
-                                    <svg class="w-6 h-6 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                    </svg>
-                                </button>
-
-                                <!-- Other Crypto Wallets -->
-                                <button onclick="openPaymentModal('Crypto Wallet')" class="payment-button w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-5 px-6 rounded-2xl shadow-lg">
-                                    <div class="w-10 h-10 mr-4 bg-white/20 rounded-full flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M20 7.33V16.67C20 18.5 18.5 20 16.67 20H7.33C5.5 20 4 18.5 4 16.67V7.33C4 5.5 5.5 4 7.33 4H16.67C18.5 4 20 5.5 20 7.33ZM12 7C10.9 7 10 7.9 10 9C10 10.1 10.9 11 12 11C13.1 11 14 10.1 14 9C14 7.9 13.1 7 12 7ZM12 13C10.9 13 10 13.9 10 15C10 16.1 10.9 17 12 17C13.1 17 14 16.1 14 15C14 13.9 13.1 13 12 13Z"/>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xl">Pay with other wallets</span>
-                                    <svg class="w-6 h-6 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="fixed inset-0 bg-bg-primary z-[100] transform -translate-x-full transition-transform duration-500 ease-in-out">
+        <div class="flex flex-col h-full p-8">
+            <div class="flex justify-between items-center mb-16">
+                 <a href="#" class="flex items-center" aria-label="Shine Bright Dental Clinic Home">
+                    <img src="https://i.imgur.com/3SNIhK4.png" alt="Shine Bright Dental Clinic Logo" class="h-12 w-auto">
+                </a>
+                <button id="mobile-menu-close" aria-label="Close Menu"><i data-lucide="x" class="w-8 h-8"></i></button>
             </div>
-        </section>
-
-        <!-- Success Section -->
-        <section id="success-section" class="hidden py-20 bg-gradient-to-br from-green-50 to-emerald-50">
-            <div class="container mx-auto px-6 text-center">
-                <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-white">
-                        <svg class="h-20 w-20 mx-auto mb-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                        </svg>
-                        <h1 class="text-4xl md:text-5xl font-black mb-4">Payment Successful!</h1>
-                        <p class="text-xl text-green-100">Your domain registration is complete</p>
-                    </div>
-                    <div class="p-8">
-                        <p class="text-gray-700 text-lg mb-6">Here is your confirmation token:</p>
-                        <p id="token-display" class="text-3xl font-mono font-bold my-6 gradient-text bg-gray-100 p-4 rounded-xl inline-block border-2 border-dashed border-gray-300"></p>
-                        <p class="text-sm text-gray-500 mt-6 bg-blue-50 rounded-lg p-4">Please save this token for your records. We've also sent a confirmation email with all the details.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-black text-center mb-16 gradient-text">Why Choose Kind Hearts Registrar?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="feature-card text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100">
-                        <div class="flex items-center justify-center h-20 w-20 mx-auto bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl mb-6">
-                           <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                           </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Free Privacy Protection</h3>
-                        <p class="text-gray-600 text-lg">We protect your personal information from being publicly available in WHOIS databases.</p>
-                    </div>
-                    <div class="feature-card text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100">
-                         <div class="flex items-center justify-center h-20 w-20 mx-auto bg-gradient-to-r from-green-500 to-green-600 text-white rounded-2xl mb-6">
-                             <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
-                             </svg>
-                         </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Global DNS Service</h3>
-                        <p class="text-gray-600 text-lg">Reliable and lightning-fast DNS management with 99.9% uptime guarantee worldwide.</p>
-                    </div>
-                    <div class="feature-card text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100">
-                        <div class="flex items-center justify-center h-20 w-20 mx-auto bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl mb-6">
-                            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-gray-800">24/7 Expert Support</h3>
-                        <p class="text-gray-600 text-lg">Our friendly and knowledgeable team is here to help you around the clock.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Payment Modal -->
-    <div id="payment-modal" class="fixed inset-0 modal-backdrop hidden items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
-            <div class="p-8">
-                <div class="text-center mb-8">
-                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-3xl font-black mb-3 gradient-text" id="modal-title">Pay with Crypto</h3>
-                    <p class="text-gray-600 text-lg mb-8">Send <span class="font-bold text-green-600 text-2xl">$18.99 USD</span> to the address below</p>
-                    
-                    <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 mb-8 border border-gray-200">
-                        <p class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Payment Address:</p>
-                        <div class="flex items-center justify-between bg-white border-2 border-dashed border-gray-300 rounded-xl p-4 hover:border-blue-400 transition-colors">
-                            <span class="crypto-address text-sm text-gray-800 font-mono select-all" id="crypto-address">TAJBeXjwTQPnC3LTNgAQnBeUQ1qm65Dk1z</span>
-                            <button onclick="copyAddress()" class="ml-3 p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-110" id="copy-button">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-3">Click the address to select all, or use the copy button</p>
-                    </div>
-
-                    <div class="space-y-4">
-                        <button onclick="confirmPayment()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg">
-                            ✓ I've Sent the Payment
-                        </button>
-                        <button onclick="closeModal()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-4 px-6 rounded-2xl transition-all duration-200">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
+            <nav class="flex flex-col space-y-8 text-2xl text-center">
+                 <a href="#about" class="mobile-nav-link">About</a>
+                <a href="#services" class="mobile-nav-link">Services</a>
+                <a href="#gallery" class="mobile-nav-link">Gallery</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
+            </nav>
+            <div class="mt-auto text-center">
+                 <a href="#contact" class="inline-flex btn mobile-nav-link">
+                    <span class="relative z-10">Book Consultation</span>
+                    <span class="btn-bg"></span>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
-        <div class="container mx-auto px-6 py-16">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <h4 class="font-bold mb-6 text-lg">Services</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Domain Registration</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Web Hosting</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Managed WordPress</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Professional Email</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-6 text-lg">Support</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Knowledgebase</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Report Abuse</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">System Status</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-6 text-lg">Company</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">About Us</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Careers</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Press</a></li>
-                        <li><a href="#" class="hover:text-blue-400 transition-colors duration-200">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-6 text-lg">Connect With Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="hover:text-blue-400 transition-colors duration-200">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="hover:text-blue-400 transition-colors duration-200">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                            </svg>
-                        </a>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero-section flex flex-col justify-end">
+            <!-- This div creates the dark overlay on top of the background image -->
+            <div class="absolute inset-0 bg-black/80 z-[1]"></div>
+            
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-32 text-center z-10">
+                <h1 id="hero-title" class="text-6xl sm:text-8xl md:text-9xl font-serif leading-none text-white">A Legacy of Smiles</h1>
+                <p id="hero-subtitle" class="max-w-xl mx-auto mt-6 text-lg leading-relaxed text-gray-300">
+                    Dentistry as a fine art. In our Kigali studio, we craft smiles that are a true reflection of you—where technical precision meets artistic vision.
+                </p>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-24 md:py-40 bg-bg-primary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5">
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                           <img src="https://i.imgur.com/hBOETNb.jpeg" alt="Dr. Eliane, lead dentist at Shine Bright Dental Clinic in Kigali" class="w-full h-full object-cover img-parallax">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 lg:col-start-7">
+                        <span class="section-subtitle animate-item">Our Philosophy</span>
+                        <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif text-text-dark animate-item">Artistry Meets Science</h2>
+                        <div class="w-24 h-px bg-accent-gold my-8 animate-item"></div>
+                        <div class="space-y-6 text-text-light text-lg leading-relaxed">
+                            <p class="animate-item">We see beyond the teeth. We see the person, the personality, the life that a smile represents. Our practice in Kigali is a sanctuary where science and artistry converge to create results that are both beautiful and enduring.</p>
+                            <p class="animate-item">Trust is the foundation of our relationship. It's earned through transparency, empathy, and an unwavering commitment to your well-being, ensuring a serene and seamless experience designed entirely around you.</p>
+                        </div>
+                        <div class="mt-12 animate-item">
+                            <a href="#contact" class="btn">
+                                <span class="relative z-10">Meet The Doctors</span>
+                                <span class="btn-bg"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-                <p class="text-lg">&copy; 2024 Kind Hearts Registrar. All Rights Reserved.</p>
+        </section>
+        
+        <!-- SERVICES SECTION -->
+        <section id="services" class="py-24 md:py-40 bg-bg-secondary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl text-center mx-auto mb-16 md:mb-24">
+                    <span class="section-subtitle animate-item">Our Services</span>
+                    <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif text-text-dark animate-item">Crafting Perfect Smiles</h2>
+                    <p class="text-text-light mt-6 text-lg leading-relaxed animate-item">We offer a curated selection of advanced dental services, each performed with meticulous attention to detail and a focus on lasting results.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="service-card bg-bg-primary p-8 text-center animate-item">
+                        <div class="flex justify-center mb-6"><i data-lucide="gem" class="w-12 h-12 text-gray-300 service-icon"></i></div>
+                        <h3 class="font-serif text-2xl text-text-dark mb-3">Cosmetic Dentistry</h3>
+                        <p class="text-text-light text-sm">Transform your smile with veneers, whitening, and full smile makeovers designed by our dental artists.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="service-card bg-bg-primary p-8 text-center animate-item">
+                        <div class="flex justify-center mb-6"><i data-lucide="anchor" class="w-12 h-12 text-gray-300 service-icon"></i></div>
+                        <h3 class="font-serif text-2xl text-text-dark mb-3">Dental Implants</h3>
+                        <p class="text-text-light text-sm">Restore function and aesthetics with state-of-the-art dental implants, the gold standard for missing teeth.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="service-card bg-bg-primary p-8 text-center animate-item">
+                        <div class="flex justify-center mb-6"><i data-lucide="shield-check" class="w-12 h-12 text-gray-300 service-icon"></i></div>
+                        <h3 class="font-serif text-2xl text-text-dark mb-3">General & Preventive Care</h3>
+                        <p class="text-text-light text-sm">Maintain optimal oral health with comprehensive exams, cleanings, and proactive treatments.</p>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="service-card bg-bg-primary p-8 text-center animate-item">
+                        <div class="flex justify-center mb-6"><i data-lucide="git-commit-horizontal" class="w-12 h-12 text-gray-300 service-icon"></i></div>
+                        <h3 class="font-serif text-2xl text-text-dark mb-3">Orthodontics</h3>
+                        <p class="text-text-light text-sm">Achieve perfect alignment and a healthier bite with modern orthodontic solutions, including clear aligners.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE EXPERIENCE SECTION -->
+        <section id="experience" class="relative py-40 md:py-52 bg-fixed bg-cover bg-center text-white" style="background-image: url('https://images.pexels.com/photos/6528859/pexels-photo-6528859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');">
+            <div class="absolute inset-0 bg-bg-dark opacity-70"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <span class="section-subtitle animate-item">The Experience</span>
+                <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif animate-item">A Sanctuary of Calm</h2>
+                <p class="text-gray-300 mt-6 max-w-2xl mx-auto text-lg leading-relaxed animate-item">
+                    Step into a space where clinical excellence meets tranquil design. Our Kigali clinic has been meticulously crafted to be a haven for wellness, where every detail is considered to ensure your visit is as comfortable as it is effective.
+                </p>
+            </div>
+        </section>
+
+        <!-- MODERN CLINIC SECTION -->
+        <section id="clinic-environment" class="py-24 md:py-40 bg-bg-secondary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="lg:pr-8 text-center lg:text-left">
+                        <span class="section-subtitle animate-item">Our Environment</span>
+                        <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif text-text-dark animate-item">Advanced Technology, Unmatched Comfort</h2>
+                        <div class="w-24 h-px bg-accent-gold my-8 mx-auto lg:mx-0 animate-item"></div>
+                        <p class="text-text-light text-lg leading-relaxed animate-item">We have invested in the latest dental technology to ensure precision, efficiency, and safety in all our treatments. From digital diagnostics to advanced procedural equipment, our clinic is at the forefront of modern dentistry. This commitment to technology is matched by our dedication to your comfort, with a serene and welcoming environment designed to make you feel at ease from the moment you arrive.</p>
+                    </div>
+                    <div class="animate-item">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2 overflow-hidden">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                    <source src="https://i.imgur.com/1eq2dtV.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="overflow-hidden"><img src="https://i.imgur.com/GHVMalW.jpeg" alt="Advanced dental equipment" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></div>
+                            <div class="overflow-hidden"><img src="https://i.imgur.com/BictghS.jpeg" alt="State-of-the-art dental chair" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="py-24 md:py-40 bg-bg-primary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="max-w-3xl mb-16 md:mb-24">
+                    <span class="section-subtitle animate-item">Our Work</span>
+                    <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif text-text-dark animate-item">A Portfolio of Radiance</h2>
+                    <p class="text-text-light mt-6 text-lg leading-relaxed animate-item">The tangible results of our dedication, artistry, and the trust our patients in Kigali place in us.</p>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                    <div class="gallery-item lg:col-span-2 lg:row-span-2 animate-item"><img src="https://i.imgur.com/d5LUzPM.jpeg" alt="Smile Transformation at our Kigali dental clinic"></div>
+                    <div class="gallery-item animate-item"><img src="https://i.imgur.com/L7xpAlj.jpeg" alt="Happy patient after dental work in Kigali"></div>
+                    <div class="gallery-item animate-item"><img src="https://i.imgur.com/L8TgZJK.jpeg" alt="Cosmetic dentistry smile detail"></div>
+                    <div class="gallery-item animate-item"><img src="https://i.imgur.com/RCIbaYf.jpeg" alt="Patient comfort at Shine Bright Dental Clinic Rwanda"></div>
+                    <div class="gallery-item animate-item"><img src="https://i.imgur.com/DN4Fmyo.jpeg" alt="Modern interior of our dental clinic in Kigali"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- TESTIMONIALS SECTION -->
+        <section id="testimonials" class="py-24 md:py-40 bg-bg-secondary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="max-w-3xl text-center mx-auto mb-16 md:mb-24">
+                    <span class="section-subtitle animate-item">Testimonials</span>
+                    <h2 class="text-5xl sm:text-6xl md:text-7xl font-serif text-text-dark animate-item">Words of Confidence</h2>
+                     <p class="text-text-light mt-6 text-lg leading-relaxed animate-item">Our greatest achievements are reflected in the smiles and stories of our patients.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card p-8 md:p-12 animate-item">
+                        <div class="flex text-accent-gold mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                        <p class="text-xl font-serif text-text-dark mb-6">"Shine Bright didn't just give me a new smile; they gave me back my confidence. The artistry and care are unlike anything I've experienced. Truly the best in Rwanda."</p>
+                        <div>
+                            <h4 class="font-bold text-text-dark">Jamie Keza</h4>
+                            <p class="text-sm text-text-light">Smile Design Patient</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card p-8 md:p-12 animate-item">
+                        <div class="flex text-accent-gold mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                        <p class="text-xl font-serif text-text-dark mb-6">"The professionalism and advanced technology at Shine Bright are world-class. The process was seamless and painless. I can finally smile without hesitation."</p>
+                        <div>
+                            <h4 class="font-bold text-text-dark">Nora Gwiza </h4>
+                            <p class="text-sm text-text-light">Dental Implant Patient</p>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card p-8 md:p-12 animate-item">
+                        <div class="flex text-accent-gold mb-4"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                        <p class="text-xl font-serif text-text-dark mb-6">"I never thought my teeth could look this good. The entire team is so welcoming. My journey with them has been life-changing. I highly recommend them to everyone in Kigali."</p>
+                        <div>
+                            <h4 class="font-bold text-text-dark">Joseph Baho</h4>
+                            <p class="text-sm text-text-light">Orthodontics Patient</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 md:py-40 bg-bg-dark text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="text-center lg:text-left">
+                        <span class="section-subtitle animate-item">Get In Touch</span>
+                        <h2 class="text-5xl sm:text-6xl md:text-8xl font-serif animate-item">Begin Your Journey</h2>
+                        <p class="text-gray-400 mt-6 max-w-md mx-auto lg:mx-0 text-lg leading-relaxed animate-item">Your transformation towards a timeless smile begins with a conversation. We invite you to connect with us to schedule your private consultation.</p>
+                        <div class="mt-12 contact-info-grid animate-item">
+                            <!-- Phone -->
+                            <div class="contact-info-item">
+                                <i data-lucide="phone"></i>
+                                <h4 class="font-semibold mb-1 text-white">Phone</h4>
+                                <a href="tel:+250792526286">+250 792 526 286</a>
+                            </div>
+                            <!-- Email -->
+                            <div class="contact-info-item">
+                                <i data-lucide="mail"></i>
+                                <h4 class="font-semibold mb-1 text-white">Email</h4>
+                                <a href="mailto:contact@shinebright.rw">contact@shinebright.rw</a>
+                            </div>
+                            <!-- Address -->
+                            <div class="contact-info-item">
+                                <i data-lucide="map-pin"></i>
+                                <h4 class="font-semibold mb-1 text-white">Location</h4>
+                                <p class="text-gray-300">kk31 ave, Kigali</p>
+                                <a href="https://www.google.com/maps/place/Shine+Bright+Dental+clinic/@-1.9888147,30.0701345,17z/data=!3m1!4b1!4m6!3m5!1s0x19dca703d9703b43:0x7ede01adef7bf492!8m2!3d-1.9888147!4d30.0701345!16s%2Fg%2F11xlp5n8gr?entry=ttu" target="_blank" class="map-button">View on Map</a>
+                            </div>
+                            <!-- Hours -->
+                            <div class="contact-info-item">
+                                <i data-lucide="clock"></i>
+                                <h4 class="font-semibold mb-1 text-white">Working Hours</h4>
+                                <p class="text-gray-300">Mon - Sun: 8 AM - 7 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                        <form action="https://formspree.io/f/xnngqkya" method="POST" id="contact-form" class="w-full bg-black bg-opacity-20 p-8 md:p-12">
+                            <h3 class="font-serif text-3xl text-white mb-8">Request a Consultation</h3>
+                            <div class="space-y-6">
+                                <div><input type="text" name="name" placeholder="Full Name" class="form-input" required></div>
+                                <div><input type="email" name="email" placeholder="Email Address" class="form-input" required></div>
+                                <div><input type="tel" name="phone" placeholder="Phone Number" class="form-input"></div>
+                                <div><textarea name="message" rows="4" placeholder="How can we help you?" class="form-input" required></textarea></div>
+                                <div id="form-status" class="text-center h-6 transition-opacity duration-300"></div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-dark w-full">
+                                        <span class="relative z-10">Send Request</span>
+                                        <span class="btn-bg"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAP SECTION -->
+        <section id="map" class="bg-bg-dark" style="height: 450px;">
+             <a href="https://www.google.com/maps/place/Shine+Bright+Dental+clinic/@-1.9888147,30.0701345,17z/data=!3m1!4b1!4m6!3m5!1s0x19dca703d9703b43:0x7ede01adef7bf492!8m2!3d-1.9888147!4d30.0701345!16s%2Fg%2F11xlp5n8gr?entry=ttu" target="_blank" rel="noopener noreferrer" class="block relative group w-full h-full">
+                <img src="https://i.imgur.com/5g2zGzD.png" alt="Map showing location of Shine Bright Dental Clinic" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/60 group-hover:bg-black/75 transition-colors duration-300 flex items-center justify-center">
+                    <div class="text-center text-white p-4">
+                        <i data-lucide="map-pin" class="w-12 h-12 mx-auto mb-4 text-accent-gold"></i>
+                        <h3 class="text-2xl font-serif">View on Google Maps</h3>
+                        <p class="text-sm uppercase tracking-widest mt-2">Click to open in a new tab</p>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-bg-secondary text-text-light">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+                <div class="md:col-span-2">
+                    <img src="https://i.imgur.com/3SNIhK4.png" alt="Shine Bright Logo" class="h-12 w-auto mx-auto md:mx-0 mb-4">
+                    <p class="text-sm max-w-sm mx-auto md:mx-0">The premier dental clinic in Kigali, Rwanda, where the art of dentistry meets advanced science to create timeless, confident smiles.</p>
+                </div>
+                <div>
+                    <h4 class="font-serif text-lg text-text-dark mb-4">Quick Links</h4>
+                    <nav class="flex flex-col space-y-2 text-sm">
+                        <a href="#about" class="hover:text-accent-gold transition-colors">About</a>
+                        <a href="#services" class="hover:text-accent-gold transition-colors">Services</a>
+                        <a href="#gallery" class="hover:text-accent-gold transition-colors">Gallery</a>
+                        <a href="#contact" class="hover:text-accent-gold transition-colors">Contact</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="font-serif text-lg text-text-dark mb-4">Connect</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="#" aria-label="Facebook" class="social-icon social-facebook"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                        <a href="https://www.instagram.com/shine_bright_dental_clinic?igsh=aGh5Z3B2NWVyZms4" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon social-instagram"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon social-linkedin"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-border-color mt-12 pt-8 text-center text-xs">
+                <p>&copy; 2024 Shine Bright Dental Clinic. A new standard in the art of dentistry.</p>
             </div>
         </div>
     </footer>
 
+    <!-- LIGHTBOX CONTAINER -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img src="" class="lightbox-img" alt="Enlarged gallery view">
+            <button class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" class="w-8 h-8"></i></button>
+            <button class="lightbox-prev" aria-label="Previous image"><i data-lucide="chevron-left" class="w-8 h-8"></i></button>
+            <button class="lightbox-next" aria-label="Next image"><i data-lucide="chevron-right" class="w-8 h-8"></i></button>
+        </div>
+    </div>
+
+    <!-- WHATSAPP FAB -->
+     <a href="https://wa.me/250792526286" target="_blank" class="whatsapp-fab" aria-label="Chat with us on WhatsApp">
+        <img src="https://i.imgur.com/HsEQO4u.png" alt="WhatsApp" class="w-9 h-9">
+    </a>
+
     <script>
-        const cryptoAddress = 'TAJBeXjwTQPnC3LTNgAQnBeUQ1qm65Dk1z';
+        // --- INITIALIZE LUCIDE ICONS ---
+        lucide.createIcons();
 
-        function openPaymentModal(provider) {
-            const modal = document.getElementById('payment-modal');
-            const modalContent = document.getElementById('modal-content');
-            const modalTitle = document.getElementById('modal-title');
-            
-            modalTitle.textContent = `Pay with ${provider}`;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            // Animate modal in
-            setTimeout(() => {
-                modalContent.style.transform = 'scale(1)';
-            }, 10);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('payment-modal');
-            const modalContent = document.getElementById('modal-content');
-            
-            modalContent.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300);
-        }
-
-        async function copyAddress() {
-            const copyButton = document.getElementById('copy-button');
-            const originalHTML = copyButton.innerHTML;
-            
-            try {
-                await navigator.clipboard.writeText(cryptoAddress);
-                
-                // Show success state
-                copyButton.innerHTML = `
-                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                `;
-                copyButton.classList.add('copy-animation');
-                
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    copyButton.innerHTML = originalHTML;
-                    copyButton.classList.remove('copy-animation');
-                }, 2000);
-                
-            } catch (err) {
-                console.error('Failed to copy address:', err);
-                
-                // Show error state
-                copyButton.innerHTML = `
-                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                `;
-                
-                setTimeout(() => {
-                    copyButton.innerHTML = originalHTML;
-                }, 2000);
-            }
-        }
-
-        function confirmPayment() {
-            closeModal();
-            
-            // Hide checkout section
-            document.getElementById('checkout-section').style.display = 'none';
-            
-            // Show success section
-            const successSection = document.getElementById('success-section');
-            successSection.classList.remove('hidden');
-            
-            // Generate and display token
-            const token = Math.random().toString(36).substring(2, 10).toUpperCase() + '-' + 
-                         Math.random().toString(36).substring(2, 10).toUpperCase();
-            document.getElementById('token-display').textContent = token;
-            
-            // Scroll to success section
-            successSection.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Close modal when clicking backdrop
-        document.getElementById('payment-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+        // --- GSAP ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // --- HEADER SCROLL ---
+        ScrollTrigger.create({
+            start: 'top -80',
+            end: 99999,
+            toggleClass: {className: 'scrolled', targets: '#header'}
+        });
+        
+        // --- PRELOADER ---
+        const preloader = document.querySelector('.preloader');
+        const preloaderLogo = document.querySelector('.preloader-logo');
+        const preloaderLine = document.querySelector('.preloader .line');
+        
+        const tlPreloader = gsap.timeline();
+        tlPreloader.to(preloaderLine, { height: '50%', duration: 1.5, ease: 'power3.inOut' })
+          .to(preloaderLogo, { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, '-=1')
+          .to(preloaderLine, { height: '100%', duration: 1, ease: 'power3.in' }, '+=0.5')
+          .to(preloader, { 
+              opacity: 0, 
+              duration: 0.8, 
+              ease: 'power3.in', 
+              onComplete: () => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Re-enable scroll
+                // HERO & NAV ANIMATION (RUNS AFTER PRELOADER)
+                gsap.timeline()
+                    .from('.nav-item', { opacity: 0, y: -30, duration: 1, ease: 'power3.out', stagger: 0.1 }, 0.5)
+                    .from('#hero-title', { opacity: 0, y: 50, duration: 1.2, ease: 'power3.out' }, '-=0.8')
+                    .from('#hero-subtitle', { opacity: 0, y: 30, duration: 1.2, ease: 'power3.out' }, '-=0.9');
+              }
         });
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
+        // --- SCROLL-TRIGGERED ANIMATIONS ---
+        gsap.utils.toArray('.animate-item').forEach(item => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1.2,
+                ease: 'power3.out'
+            });
         });
-
-        // Check URL for payment status on load
-        window.addEventListener('load', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const paymentStatus = urlParams.get('payment');
-
-            if (paymentStatus === 'success') {
-                confirmPayment();
-            }
+        
+        // --- PARALLAX IMAGE ---
+        gsap.utils.toArray('.img-parallax').forEach(img => {
+            gsap.to(img, {
+                yPercent: -15,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    scrub: 1
+                }
+            });
         });
+        
+        // --- MOBILE MENU ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openBtn = document.getElementById('mobile-menu-button');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const openMenu = () => {
+            gsap.to(mobileMenu, { x: '0%', duration: 0.5, ease: 'power3.out' });
+        }
+        const closeMenu = () => {
+             gsap.to(mobileMenu, { x: '-100%', duration: 0.5, ease: 'power3.in' });
+        }
+        
+        openBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+
+        // --- LIGHTBOX SCRIPT ---
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const lightboxCloseBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+
+        if (galleryItems.length > 0) {
+            let currentIndex;
+            const images = Array.from(galleryItems).map(item => item.querySelector('img').src);
+
+            const showImage = (index) => {
+                lightboxImg.src = images[index];
+                currentIndex = index;
+            };
+
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    lightbox.classList.add('active');
+                    showImage(index);
+                });
+            });
+
+            const closeLightbox = () => lightbox.classList.remove('active');
+
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                showImage(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                showImage(currentIndex);
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('active')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                }
+            });
+        }
+
+        // --- AJAX FORM SUBMISSION ---
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const form = e.target;
+                const status = document.getElementById('form-status');
+                const button = form.querySelector('button[type="submit"]');
+                const buttonText = button.querySelector('span');
+                const originalButtonText = buttonText.innerText;
+
+                buttonText.innerText = 'Sending...';
+                button.disabled = true;
+                status.style.opacity = 0;
+
+                const data = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        status.textContent = "Request received! We'll be in touch soon.";
+                        status.style.color = 'var(--accent-gold)';
+                        form.reset();
+                    } else {
+                        const responseData = await response.json();
+                        if (responseData.errors) {
+                            status.textContent = responseData.errors.map(error => error.message).join(', ');
+                        } else {
+                            status.textContent = 'Oops! There was an error.';
+                        }
+                        status.style.color = '#f87171'; // Red
+                    }
+                } catch (error) {
+                    status.textContent = 'Oops! There was a network error.';
+                    status.style.color = '#f87171'; // Red
+                } finally {
+                    status.style.opacity = 1;
+                    buttonText.innerText = originalButtonText;
+                    button.disabled = false;
+                    setTimeout(() => {
+                        status.style.opacity = 0;
+                        status.textContent = '';
+                    }, 6000);
+                }
+            });
+        }
     </script>
 </body>
 </html>
+
+
+
